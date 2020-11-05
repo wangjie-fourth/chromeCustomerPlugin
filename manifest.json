@@ -1,0 +1,24 @@
+{
+  "name": "日常开发快捷键",
+  "version": "1.0",
+  "description": "将一些日常操作自动化的插件",
+  "manifest_version": 2,
+  "permissions": ["browsingData","activeTab","storage","declarativeContent","contextMenus","tabs", "<all_urls>"],
+
+  "browser_action": {
+    "default_icon": "images/get_started16.png",
+    "default_popup": "popup.html"
+  },
+
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": false
+  },
+
+  "icons": {
+    "16": "images/get_started16.png",
+    "32": "images/get_started32.png",
+    "48": "images/get_started48.png",
+    "128": "images/get_started128.png"
+  }
+}
