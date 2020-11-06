@@ -1,6 +1,15 @@
 var CurrentPageContext = function () {
-    this.allLinkAddressList = document.querySelectorAll('#content_left .c-container.new-pmd')
-    this.selectIndex = -1
+    let currentUrl = window.location.href
+    if (currentUrl.indexOf("www.google.com") !== -1) {
+        this.allLinkAddressList = document.querySelectorAll('#search .g')
+        console.log(this.allLinkAddressList)
+        this.selectIndex = -1
+        this.linkSelector = '.rc .yuRUbf a'
+    } else if (currentUrl.indexOf("www.baidu.com") !== -1) {
+        this.allLinkAddressList = document.querySelectorAll('#content_left .c-container.new-pmd')
+        this.selectIndex = -1
+        this.linkSelector = 'h3.t a'
+    }
 }
 
 
@@ -17,6 +26,11 @@ CurrentPageContext.prototype = {
      * 用户当前选中的链接下标，默认为-1，最低也是-1，最高是allLinkAddressList.length
      */
     selectIndex: null,
+
+    /**
+     * 选中链接的选择器
+     */
+    linkSelector: null,
 
     /**
      * 选择上一条链接信息
@@ -76,7 +90,7 @@ CurrentPageContext.prototype = {
         if (index < 0 || index > (this.allLinkAddressList.length - 1)) {
             throw new Error('the incorrect index ' + index)
         }
-        let newLinkAddress = this.allLinkAddressList[index].querySelector('h3.t a').href
+        let newLinkAddress = this.allLinkAddressList[index].querySelector(this.linkSelector).href
         window.open(newLinkAddress)
     }
 }
