@@ -119,39 +119,6 @@ document.onkeydown = function (key) {
     }
 
 }
-// function DOMtoString(document_root) {
-//     let target = new CurrentPageContext()
-//     // 键盘事件监听
-//     document_root.onkeydown = function (key) {
-//         if (key.keyCode === 87) {
-//             console.log('user press W ')
-//             if (target.selectLastIndex()) {
-//
-//             }
-//         }
-//         if (key.keyCode === 83) {
-//             console.log('user press S ')
-//             if (target.selectNextIndex()) {
-//
-//             }
-//
-//
-//         }
-//         if (key.keyCode === 13) {
-//             console.log('user press Enter')
-//             target.openTheCurrentLink()
-//         }
-//
-//     }
-//
-//
-//     return null;
-// }
-
-// chrome.runtime.sendMessage({
-//     action: "getSource",
-//     source: DOMtoString(document)
-// });
 
 
 

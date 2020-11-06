@@ -1,11 +1,4 @@
-chrome.runtime.onMessage.addListener(function(request, sender) {
-    if (request.action == "getSource") {
-        let currentPageDocument = request.source;
 
-        chrome.extension.getBackgroundPage().console.dir(request.source);
-
-    }
-});
 
 function onWindowLoad() {
 
