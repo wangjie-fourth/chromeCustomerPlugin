@@ -15,6 +15,9 @@ var CurrentPageContext = function () {
 
 /**
  * 用户输入搜索条件后的页面对象
+ * 控制元素在页面的滚动：
+ * 1、向上不能低于300px
+ * 2、向下不能低于300px
  */
 CurrentPageContext.prototype = {
     /**
@@ -44,6 +47,14 @@ CurrentPageContext.prototype = {
             --this.selectIndex
             this.setSelectLinkStyle(this.selectIndex)
             this.clearSelectLinkStyle(this.selectIndex + 1)
+
+            // 当前元素距离top的距离
+            let toTopLength = this.allLinkAddressList[this.selectIndex].offsetTop
+            console.log('距离上边框的距离：', toTopLength)
+            if (toTopLength < 300) {
+                document.documentElement.scrollTop = 300
+            }
+
             return true
         }
         return false
@@ -61,6 +72,15 @@ CurrentPageContext.prototype = {
             ++this.selectIndex
             this.setSelectLinkStyle(this.selectIndex)
             this.clearSelectLinkStyle(this.selectIndex - 1)
+
+            // 当前元素距离bottom的距离 页面高度 -  元素距离top - 元素高度
+            let toBottomLength = document.documentElement.clientHeight
+                - this.allLinkAddressList[this.selectIndex].offsetTop
+                - this.allLinkAddressList[this.selectIndex].offsetHeight
+            console.log('距离下边框的距离：', toBottomLength)
+            if (toBottomLength < 300) {
+                document.documentElement.scrollTop = document.documentElement.clientHeight - 300
+            }
             return true
         }
         return false
@@ -105,14 +125,14 @@ document.onkeydown = function (key) {
 
         }
     }
+
     if (key.keyCode === 83) {
         console.log('user press S ')
         if (target.selectNextIndex()) {
 
         }
-
-
     }
+
     if (key.keyCode === 13) {
         console.log('user press Enter')
         target.openTheCurrentLink()
