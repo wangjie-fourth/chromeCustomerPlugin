@@ -1,4 +1,19 @@
-var CurrentPageContext = function () {
+const utils = {
+    // 获取一个元素在窗口的绝对定位
+    getElementTop(element) {
+        let actualTop = element.offsetTop;
+        let current = element.offsetParent;
+
+        while (current !== null) {
+            actualTop += current.offsetTop;
+            current = current.offsetParent;
+        }
+
+        return actualTop;
+    }
+}
+
+let CurrentPageContext = function () {
     let currentUrl = window.location.href
     if (currentUrl.indexOf("www.google.com") !== -1) {
         this.allLinkAddressList = document.querySelectorAll('#search .g')
@@ -49,16 +64,21 @@ CurrentPageContext.prototype = {
             this.clearSelectLinkStyle(this.selectIndex + 1)
 
             // 当前元素距离top的距离
-            let toTopLength = this.allLinkAddressList[this.selectIndex].offsetTop
+            let toTopLength = utils.getElementTop(this.allLinkAddressList[this.selectIndex]) - document.documentElement.scrollTop
+            console.log('距离顶端框的距离：', utils.getElementTop(this.allLinkAddressList[this.selectIndex]))
             console.log('距离上边框的距离：', toTopLength)
+            console.log('下拉框的距离：', document.documentElement.scrollTop)
             if (toTopLength < 300) {
-                document.documentElement.scrollTop = 300
+                console.log('调整当前下拉框位置为：', utils.getElementTop(this.allLinkAddressList[this.selectIndex]) - 300)
+                document.documentElement.scrollTop = utils.getElementTop(this.allLinkAddressList[this.selectIndex]) - 300
             }
 
             return true
         }
         return false
     },
+
+
 
     /**
      * 选择下一条链接信息
@@ -74,12 +94,13 @@ CurrentPageContext.prototype = {
             this.clearSelectLinkStyle(this.selectIndex - 1)
 
             // 当前元素距离bottom的距离 页面高度 -  元素距离top - 元素高度
-            let toBottomLength = document.documentElement.clientHeight
-                - this.allLinkAddressList[this.selectIndex].offsetTop
-                - this.allLinkAddressList[this.selectIndex].offsetHeight
+            let toBottomLength = document.documentElement.clientHeight -
+                (utils.getElementTop(this.allLinkAddressList[this.selectIndex]) - document.documentElement.scrollTop) - this.allLinkAddressList[this.selectIndex].offsetHeight
+            console.log('距离顶端框的距离：', utils.getElementTop(this.allLinkAddressList[this.selectIndex]))
             console.log('距离下边框的距离：', toBottomLength)
+            console.log('下拉框的距离：', document.documentElement.scrollTop)
             if (toBottomLength < 300) {
-                document.documentElement.scrollTop = document.documentElement.clientHeight - 300
+                document.documentElement.scrollTop = document.documentElement.scrollTop + 90
             }
             return true
         }
@@ -90,7 +111,7 @@ CurrentPageContext.prototype = {
      * 清除选中链接的样式
      */
     clearSelectLinkStyle: function (index) {
-        if (index>=0 && index<this.allLinkAddressList.length) {
+        if (index >= 0 && index < this.allLinkAddressList.length) {
             this.allLinkAddressList[index].style.border = null
         }
     },
