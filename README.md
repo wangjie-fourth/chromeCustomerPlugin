@@ -14,3 +14,31 @@
 # 二、项目结构
 是不是可以撑着这次机会学学TS？那就需要引入webpack？如何打包生成？
 
+# 备注
+background page
+popup
+content script
+1、如何将插件日志输出到控制台下
+```js
+chrome.extension.getBackgroundPage().console.log(tagAs);
+```
+
+https://stackoverflow.com/questions/3829150/google-chrome-extension-console-log-from-background-page
+
+2、如何获取当前页面元素
+https://stackoverflow.com/questions/11684454/getting-the-source-html-of-the-current-page-from-chrome-extension
+
+---
+
+打开新的tab页：command + T
+
+关闭当前tab页：command + W
+
+定位当前页的地址栏：command + L
+
+返回上一个界面：command + <--
+
+tab间移动：command + alt + 方向键
+
+
+
